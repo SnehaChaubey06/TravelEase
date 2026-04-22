@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Register Page</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  
+  <!-- This code block includes a link to the favicon. -->
+  <link rel="icon" href="{{ url_for('static',filename='logo.svg') }}" />
+  
+  <style>
+    /* Global Styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("{{ url_for('static', filename='bgb.jpeg') }}");
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    /* Signup Container */
+    .signup-container {
+        max-width: 300px;
+        margin: 80px auto;
+        padding: 30px;
+        /* background-color: #fff; */
+        backdrop-filter: blur(1px);
+        border: 1px solid #333;
+        border-radius: 10px;
+        box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-size: 14px;
+        color: #000000;
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    input:focus {
+        border-color: #007BFF;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007BFF;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    p {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* Flash message styles */
+    .alert {
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="signup-container">
+    <h2>Register</h2>
+    
+    <!-- Flash Messages Container -->
+    <div id="flash-messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
+    
+    <form action="{{ url_for('register') }}" method="POST">
+      <!-- Name input -->
+      <div class="input-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Name" required />
+      </div>
+      
+      <!-- Email input -->
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email address" required />
+      </div>
+
+      <!-- Password input -->
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required />
+      </div>
+      
+      <!-- Confirm Password -->
+      <div class="input-group">
+        <label for="password2">Confirm Password</label>
+        <input type="password" id="password2" name="password2" placeholder="Confirm Password" required />
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit">Register</button>
+      
+      <!-- Login link -->
+      <p>Have already an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    </form>
+  </div>
+
+  <script>
+    // Auto-hide flash messages after 5 seconds
+    setTimeout(function() {
+      document.querySelectorAll(".alert").forEach(function(alert) {
+        alert.style.display = "none";
+      });
+    }, 5000);
+  </script>
+</body>
+</html>
